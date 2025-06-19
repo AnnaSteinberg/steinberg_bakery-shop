@@ -11,16 +11,22 @@ import ShoppingCart from "./components/ShoppingCart.tsx";
 import ErrorPage from "./components/ErrorPage.tsx";
 import {useEffect} from "react";
 import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop.tsx";
+import { Login } from './components/Login.tsx';
 
 function App() {
 
     const location = useLocation();
     const navigate = useNavigate();
 
+
     useEffect(()=>{
         if(location.pathname === `/${Paths.ERROR}`)
             navigate('/')
     },[])
+
+    const funcForLogin = (obj:object) => {
+        console.log(JSON.stringify(obj));
+    }
 
     return (
         <Routes>
@@ -31,6 +37,7 @@ function App() {
                 <Route path={Paths.CUSTOMERS} element={<Customers/>}/>
                 <Route path={Paths.ORDERS} element={<Orders/>}/>
                 <Route path={Paths.CART} element={<ShoppingCart/>}/>
+                <Route path={Paths.AUTHORIZATION} element={<Login funcForLogin={funcForLogin}/>}/>
 
                 {/*<Route path={Paths.PRODUCTS} element={<Products/>}/>*/}
                 {/*<Route path={Paths.PRODUCTS} element={<ProductLayout/>}>*/}
