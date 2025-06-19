@@ -1,7 +1,7 @@
 import {RouteType} from "../../utils/shop-types.ts";
 import {FC, useState} from "react";
-import {Box, Link, Tab, Tabs} from '@mui/material'
-import {Outlet} from "react-router-dom";
+import {AppBar, Box, Tab, Tabs} from '@mui/material'
+import {Link, Outlet} from "react-router-dom";
 import * as React from "react";
 
 type Props = {
@@ -18,14 +18,14 @@ const NavigatorDeskTop:FC<Props> = ({items}) => {
     }
 
     return (
-        <Box>
-            <Tabs value={value} onChange={handleOnChange}>
+        <Box sx={{mt: '50px'}}>
+            <AppBar sx={{backgroundColor: 'lightgray'}}><Tabs value={value} onChange={handleOnChange}>
                 {
                     items.map(item =>
                         <Tab key={item.path} component={Link} to={item.path} label={item.title}/>
                     )
                 }
-            </Tabs>
+            </Tabs></AppBar>
             <Outlet/>
         </Box>
     );

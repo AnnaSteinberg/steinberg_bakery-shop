@@ -6,7 +6,6 @@ import Customers from "./components/Customers.tsx";
 import Orders from "./components/Orders.tsx";
 import Bread from "./components/Bread.tsx";
 import Dairy from "./components/Dairy.tsx";
-import Navigator from "./components/navigation/Navigator.tsx";
 import {navItems, productItems} from "./configurations/nav-config.ts";
 import ShoppingCart from "./components/ShoppingCart.tsx";
 import ErrorPage from "./components/ErrorPage.tsx";
@@ -35,7 +34,7 @@ function App() {
 
                 {/*<Route path={Paths.PRODUCTS} element={<Products/>}/>*/}
                 {/*<Route path={Paths.PRODUCTS} element={<ProductLayout/>}>*/}
-                <Route path={Paths.PRODUCTS} element={<Navigator items={productItems} sub={'sub'}/>}>
+                <Route path={Paths.PRODUCTS} element={<NavigatorDeskTop items={productItems}/>}>
                     <Route path={Paths.BREAD} element={<Bread/>}/>
                     <Route path={Paths.DAIRY} element={<Dairy/>}/>
                 </Route>
