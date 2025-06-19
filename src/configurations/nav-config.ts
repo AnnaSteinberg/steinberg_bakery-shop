@@ -11,4 +11,5 @@ export  const  navItems: RouteType[] = [
 export  const productItems: RouteType[] = [
     {path: Paths.BREAD, title: 'bread'},
     {path: Paths.DAIRY, title: 'dairy'},
+    {path: Paths.BACK, title: 'Back to main menu'},
 ]
