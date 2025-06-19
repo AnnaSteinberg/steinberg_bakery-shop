@@ -5,7 +5,8 @@ export enum  Paths {
     CART = 'cart',
     CUSTOMERS = 'customers',
     BREAD = 'bread',
-    DAIRY = 'dairy'
+    DAIRY = 'dairy',
+    ERROR = 'error'
 }
 
 export type RouteType = {
