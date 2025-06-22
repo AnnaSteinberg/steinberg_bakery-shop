@@ -1,3 +1,8 @@
+
+export enum Roles {
+    ALL = 0, USER = 1, ADMIN = 2, NO_AUTH = 3
+}
+
 export enum  Paths {
     HOME = '/',
     ORDERS = 'orders',
@@ -8,10 +13,17 @@ export enum  Paths {
     DAIRY = 'dairy',
     ERROR = 'error',
     BACK = 'back',
-    AUTHORIZATION = 'authorization',
+    LOGIN = 'login',
+    LOGOUT='logout'
 }
 
 export type RouteType = {
     path: Paths,
-    title: string
+    title: string,
+    role?: Roles
+}
+
+export type LoginData = {
+    email:string,
+    password:string
 }

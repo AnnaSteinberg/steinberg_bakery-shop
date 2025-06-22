@@ -17,7 +17,8 @@ const Navigator:FC<Props> = ({items, sub}) => {
                             <NavLink to={item.path} key={item.path} style={{textDecorationLine: "none"}}>
                             <li>
                                 {item.title}
-                            </li></NavLink>)
+                            </li>
+                            </NavLink>)
                     }
                 </ul>
             </nav>

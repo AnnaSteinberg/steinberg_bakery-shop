@@ -1,12 +1,14 @@
-import {Paths, RouteType} from "../utils/shop-types.ts";
+import {Paths, Roles, RouteType} from "../utils/shop-types.ts";
 
 export  const  navItems: RouteType[] = [
-    {path: Paths.HOME, title: 'home'},
-    {path: Paths.ORDERS, title: 'orders'},
-    {path: Paths.CART, title: 'cart'},
-    {path: Paths.CUSTOMERS, title: 'customers'},
-    {path: Paths.PRODUCTS, title: 'products'},
-    {path: Paths.AUTHORIZATION, title: 'authorization'},
+    {path: Paths.HOME, title: 'home', role: Roles.ALL},
+    {path: Paths.ORDERS, title: 'orders', role: Roles.USER},
+    {path: Paths.CART, title: 'cart', role: Roles.USER},
+    {path: Paths.CUSTOMERS, title: 'customers', role: Roles.ADMIN},
+    {path: Paths.PRODUCTS, title: 'products', role: Roles.ALL},
+    {path: Paths.LOGIN, title: 'login', role: Roles.NO_AUTH},
+    {path: Paths.LOGOUT, title: 'logout', role: Roles.USER}
+
 ]
 
 export  const productItems: RouteType[] = [

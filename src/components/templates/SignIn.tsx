@@ -3,7 +3,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 // import Checkbox from '@mui/material/Checkbox';
-import CssBaseline from '@mui/material/CssBaseline';
+// import CssBaseline from '@mui/material/CssBaseline';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 import Divider from '@mui/material/Divider';
 import FormLabel from '@mui/material/FormLabel';
@@ -14,17 +14,18 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import ForgotPassword from './for_SignIn/ForgotPassword.tsx';
-import AppTheme from './for_SignIn/AppTheme.tsx';
-import ColorModeSelect from './for_SignIn/ColorModeSelect';
+// import ForgotPassword from './for_SignIn/ForgotPassword.tsx';
+// import AppTheme from './for_SignIn/AppTheme.tsx';
+// import ColorModeSelect from './for_SignIn/ColorModeSelect';
 // import { GoogleIcon, FacebookIcon, SitemarkIcon } from './for_SignIn/CustomIcons';
 // import { GoogleIcon, FacebookIcon } from './for_SignIn/CustomIcons';
-import { GoogleIcon } from './for_SignIn/CustomIcons';
+import {GoogleIcon} from './CustomIcons.tsx';
 import {FC} from "react";
+import {LoginData} from "../../utils/shop-types.ts";
 
 type Props = {
-    funcForLogin: (obj:object)=>void
-    disableCustomTheme?: boolean
+    funcForLogin: (data:LoginData)=>void
+    // disableCustomTheme?: boolean
 }
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -53,50 +54,51 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
     [theme.breakpoints.up('sm')]: {
         padding: theme.spacing(4),
     },
-    '&::before': {
-        content: '""',
-        display: 'block',
-        position: 'absolute',
-        zIndex: -1,
-        inset: 0,
-        backgroundImage:
-            'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
-        backgroundRepeat: 'no-repeat',
-        ...theme.applyStyles('dark', {
-            backgroundImage:
-                'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
-        }),
-    },
+    // '&::before': {
+    //     content: '""',
+    //     display: 'block',
+    //     position: 'absolute',
+    //     zIndex: -1,
+    //     inset: 0,
+    //     backgroundImage:
+    //         'radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))',
+    //     backgroundRepeat: 'no-repeat',
+    //     ...theme.applyStyles('dark', {
+    //         backgroundImage:
+    //             'radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))',
+    //     }),
+    // },
 }));
 
 // export default function Login(props: { disableCustomTheme?: boolean }) {
-export const Login:FC<Props> = ({funcForLogin, disableCustomTheme})=> {
+export const SignIn:FC<Props> = ({funcForLogin})=> {
 
     const [emailError, setEmailError] = React.useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
     const [passwordError, setPasswordError] = React.useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-    const [open, setOpen] = React.useState(false);
+    // const [open, setOpen] = React.useState(false);
 
     // const handleClickOpen = () => {
     //     setOpen(true);
     // };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+    // const handleClose = () => {
+    //     setOpen(false);
+    // };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
         if (emailError || passwordError) {
-            event.preventDefault();
             return;
         }
         const data = new FormData(event.currentTarget);
-        // console.log({
-        //     email: data.get('email'),
-        //     password: data.get('password'),
-        // });
-        funcForLogin(data);
+
+        funcForLogin({
+            email: data.get('email') as string,
+            password: data.get('password') as string,
+        });
     };
 
     const validateInputs = () => {
@@ -127,10 +129,10 @@ export const Login:FC<Props> = ({funcForLogin, disableCustomTheme})=> {
     };
 
     return (
-        <AppTheme {...disableCustomTheme?.valueOf}>
-            <CssBaseline enableColorScheme />
+        // <AppTheme {...disableCustomTheme?.valueOf}>
+        //     <CssBaseline enableColorScheme />
             <SignInContainer direction="column" justifyContent="space-between">
-                <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
+                {/*<ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />*/}
                 <Card variant="outlined">
                     {/*<SitemarkIcon />*/}
                     <Typography
@@ -189,7 +191,7 @@ export const Login:FC<Props> = ({funcForLogin, disableCustomTheme})=> {
                         {/*    control={<Checkbox value="remember" color="primary" />}*/}
                         {/*    label="Remember me"*/}
                         {/*/>*/}
-                        <ForgotPassword open={open} handleClose={handleClose} />
+                        {/*<ForgotPassword open={open} handleClose={handleClose} />*/}
                         <Button
                             type="submit"
                             fullWidth
@@ -198,15 +200,6 @@ export const Login:FC<Props> = ({funcForLogin, disableCustomTheme})=> {
                         >
                             Sign in
                         </Button>
-                        {/*<Link*/}
-                        {/*    component="button"*/}
-                        {/*    type="button"*/}
-                        {/*    onClick={handleClickOpen}*/}
-                        {/*    variant="body2"*/}
-                        {/*    sx={{ alignSelf: 'center' }}*/}
-                        {/*>*/}
-                        {/*    Forgot your password?*/}
-                        {/*</Link>*/}
                     </Box>
                     <Divider>or</Divider>
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -229,7 +222,8 @@ export const Login:FC<Props> = ({funcForLogin, disableCustomTheme})=> {
                         <Typography sx={{ textAlign: 'center' }}>
                             Don&apos;t have an account?{' '}
                             <Link
-                                href="/material-ui/getting-started/templates/sign-in/"
+                                // href="/material-ui/getting-started/templates/sign-in/"
+                                href="#"
                                 variant="body2"
                                 sx={{ alignSelf: 'center' }}
                             >
@@ -239,6 +233,6 @@ export const Login:FC<Props> = ({funcForLogin, disableCustomTheme})=> {
                     </Box>
                 </Card>
             </SignInContainer>
-        </AppTheme>
+        // </AppTheme>
     );
 }
