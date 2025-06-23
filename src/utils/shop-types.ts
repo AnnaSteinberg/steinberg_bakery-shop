@@ -1,6 +1,6 @@
 
 export enum Roles {
-    ALL = 0, USER = 1, ADMIN = 2, NO_AUTH = 3
+    ALL = 0, USER = 1, ADMIN = 2, NO_AUTH = 3, NOT_ADMIN
 }
 
 export enum  Paths {
@@ -14,7 +14,8 @@ export enum  Paths {
     ERROR = 'error',
     BACK = 'back',
     LOGIN = 'login',
-    LOGOUT='logout'
+    LOGOUT='logout',
+    SIGNUP = 'signup'
 }
 
 export type RouteType = {

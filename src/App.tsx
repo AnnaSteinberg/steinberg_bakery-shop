@@ -14,6 +14,7 @@ import NavigatorDeskTop from "./components/navigation/NavigatorDeskTop.tsx";
 import {useAppSelector} from "./redux/hooks.ts";
 import Login from './components/service_pages/Login.tsx'
 import Logout from './components/service_pages/Logout.tsx'
+import SignUp from "./components/templates/SignUp.tsx";
 
 function App() {
 
@@ -29,10 +30,14 @@ function App() {
 
 
     const predicate = (item:RouteType)=> {
+        let isAdmin = false;
+       if (authUser)
+            isAdmin = authUser.includes('admin')
         return(
             item.role === Roles.ALL ||
-                item.role === Roles.USER && authUser ||
-                item.role === Roles.ADMIN  && authUser && authUser.includes('admin') ||
+                item.role === Roles.USER && authUser  ||
+                item.role === Roles.ADMIN && isAdmin ||
+                item.role === Roles.NOT_ADMIN && authUser && !isAdmin ||
                 item.role === Roles.NO_AUTH && !authUser
         )
     }
@@ -59,6 +64,7 @@ function App() {
                     <Route path={Paths.DAIRY} element={<Dairy/>}/>
                     <Route path={Paths.BACK} element={<Navigate to={Paths.HOME}/>}/>
                 </Route>
+                <Route path={Paths.SIGNUP} element={<SignUp/>}/>
                 <Route path={Paths.LOGIN} element={<Login/>}/>
                 <Route path={Paths.LOGOUT} element={<Logout/>}/>
             </Route>
