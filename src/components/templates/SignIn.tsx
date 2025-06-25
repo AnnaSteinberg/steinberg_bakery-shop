@@ -21,15 +21,14 @@ import { styled } from '@mui/material/styles';
 // import { GoogleIcon, FacebookIcon } from './for_SignIn/CustomIcons';
 import {GoogleIcon} from './CustomIcons.tsx';
 import {FC} from "react";
-import {LoginData, Paths} from "../../utils/shop-types.ts";
-import {useNavigate} from "react-router-dom";
+import {LoginData} from "../../utils/shop-types.ts";
 
 type Props = {
     funcForLogin: (data:LoginData)=>void
     // disableCustomTheme?: boolean
 }
 
-const Card = styled(MuiCard)(({ theme }) => ({
+export const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignSelf: 'center',
@@ -48,7 +47,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
     }),
 }));
 
-const SignInContainer = styled(Stack)(({ theme }) => ({
+export const SignInContainer = styled(Stack)(({ theme }) => ({
     height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
     minHeight: '100%',
     padding: theme.spacing(2),
@@ -79,7 +78,6 @@ export const SignIn:FC<Props> = ({funcForLogin})=> {
     const [passwordError, setPasswordError] = React.useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
 
-    const navigate = useNavigate();
     // const [open, setOpen] = React.useState(false);
 
     // const handleClickOpen = () => {
@@ -131,18 +129,10 @@ export const SignIn:FC<Props> = ({funcForLogin})=> {
         return isValid;
     };
 
-    const handleOnClick_SignUp = () => {
-        console.log('handleOnClick_SignUp')
-           navigate(`/${Paths.SIGNUP}`);
-    }
 
     return (
-        // <AppTheme {...disableCustomTheme?.valueOf}>
-        //     <CssBaseline enableColorScheme />
             <SignInContainer direction="column" justifyContent="space-between">
-                {/*<ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />*/}
                 <Card variant="outlined">
-                    {/*<SitemarkIcon />*/}
                     <Typography
                         component="h1"
                         variant="h4"
@@ -214,27 +204,18 @@ export const SignIn:FC<Props> = ({funcForLogin})=> {
                         <Button
                             fullWidth
                             variant="outlined"
-                            onClick={() => alert('Sign in with Google')}
+                            onClick={() => funcForLogin({email: 'GOOGLE', password: ''})}
                             startIcon={<GoogleIcon />}
                         >
                             Sign in with Google
                         </Button>
-                        {/*<Button*/}
-                        {/*    fullWidth*/}
-                        {/*    variant="outlined"*/}
-                        {/*    onClick={() => alert('Sign in with Facebook')}*/}
-                        {/*    startIcon={<FacebookIcon />}*/}
-                        {/*>*/}
-                        {/*    Sign in with Facebook*/}
-                        {/*</Button>*/}
+
                         <Typography sx={{ textAlign: 'center' }}>
                             Don&apos;t have an account?{' '}
                             <Link
-                                // href="/material-ui/getting-started/templates/sign-in/"
-                                href="#"
+                                href='/signup'
                                 variant="body2"
                                 sx={{ alignSelf: 'center' }}
-                                onClick={handleOnClick_SignUp}
                             >
                                 Sign up
                             </Link>
@@ -242,6 +223,5 @@ export const SignIn:FC<Props> = ({funcForLogin})=> {
                     </Box>
                 </Card>
             </SignInContainer>
-        // </AppTheme>
     );
 }

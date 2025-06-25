@@ -28,3 +28,19 @@ export type LoginData = {
     email:string,
     password:string
 }
+
+export type SignupData = {
+    firstName: string,
+    lastName: string,
+    email:string,
+    password:string
+}
+
+export type ProductType = {
+    id?: string,
+    title: string,
+    category: string,
+    unit: string,
+    cost: number,
+    img: string
+}
