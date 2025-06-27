@@ -100,6 +100,7 @@ export const SignIn:FC<Props> = ({funcForLogin})=> {
             email: data.get('email') as string,
             password: data.get('password') as string,
         });
+
     };
 
     const validateInputs = () => {

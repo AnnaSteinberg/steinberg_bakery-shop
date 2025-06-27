@@ -2,7 +2,9 @@
 // import {signOut, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword} from 'firebase/auth'
 import {signOut, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword} from 'firebase/auth'
 import {auth} from '../configurations/firebase-config.ts';
-import {LoginData} from "../utils/shop-types.ts";
+import {LoginData, SignupData} from "../utils/shop-types.ts";
+import { updateProfile } from 'firebase/auth';
+
 
 const loginWithEmail = async (data:LoginData)=>{
     await signInWithEmailAndPassword(auth, data.email, data.password)
@@ -29,4 +31,16 @@ export const registerWithEmailAndPassword = async (data:LoginData) => {
 
 export const exit = async () => {
     await  signOut(auth)
+}
+
+export const saveFullName = async (data: SignupData)=> {
+    const user = auth.currentUser;
+    if (user) {
+        await updateProfile(user, {
+            displayName: `${data.firstName} ${data.lastName}`.trim()
+        });
+    } else {
+        console.log('User not found');
+    }
+
 }

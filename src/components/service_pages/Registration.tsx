@@ -1,5 +1,5 @@
-import {LoginData, SignupData} from "../../utils/shop-types.ts";
-import {registerWithEmailAndPassword} from "../../firebase/firebaseAuthService.ts";
+import {SignupData} from "../../utils/shop-types.ts";
+import {registerWithEmailAndPassword, saveFullName} from "../../firebase/firebaseAuthService.ts";
 import {useNavigate} from "react-router-dom";
 import SignUp from "../templates/SignUp.tsx";
 
@@ -10,12 +10,15 @@ const Registration = () => {
     // }
 
     const signUpWithEmail = async (data:SignupData) => {
-        const userEmailPass:LoginData = {
+        const userEmailPass:SignupData = {
+            firstName: data.firstName,
+            lastName: data.lastName,
             email: data.email,
             password: data.password
         }
         try {
             await  registerWithEmailAndPassword(userEmailPass);
+            saveFullName(userEmailPass)
             navigate("/login");
         }catch (e){
             console.log(e);

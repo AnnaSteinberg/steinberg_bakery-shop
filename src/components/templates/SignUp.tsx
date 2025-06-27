@@ -24,19 +24,22 @@ type Props = {
     signUpWithEmail: (data: SignupData) => void;
 }
 
-    const  SignUp:React.FC<Props> = ({signUpWithEmail}) => {
+const  SignUp:React.FC<Props> = ({signUpWithEmail}) => {
     const [emailError, setEmailError] = React.useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
     const [passwordError, setPasswordError] = React.useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
     const [nameError, setNameError] = React.useState(false);
+    const [lastNameError , setLastNameError] = React.useState(false);
     const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+    const [lastNameErrorMessage, setLastNameErrorMessage] = React.useState('');
 
 
     const validateInputs = () => {
         const email = document.getElementById('email') as HTMLInputElement;
         const password = document.getElementById('password') as HTMLInputElement;
         const name = document.getElementById('name') as HTMLInputElement;
+        const lastName = document.getElementById('lastName') as HTMLInputElement;
 
         let isValid = true;
 
@@ -66,6 +69,15 @@ type Props = {
             setNameError(false);
             setNameErrorMessage('');
         }
+        if (!lastName.value || lastName.value.length < 1) {
+            setLastNameError(true);
+            setLastNameErrorMessage('Last name is required.');
+            isValid = false;
+        } else {
+            setLastNameError(false);
+            setLastNameErrorMessage('');
+
+        }
 
         return isValid;
     };
@@ -73,16 +85,18 @@ type Props = {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (nameError || emailError || passwordError) {
+        if (nameError || emailError || passwordError||lastNameError) {
             return;
         }
         const data = new FormData(event.currentTarget);
-        signUpWithEmail({
+        const dataUser = {
             firstName: data.get('name') as string,
             lastName: data.get('lastName') as string,
             email: data.get('email') as string,
             password: data.get('password') as string
-        });
+        }
+        signUpWithEmail(dataUser);
+        // saveFullName(dataUser)
     };
 
 
@@ -102,17 +116,28 @@ type Props = {
                         sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
                     >
                         <FormControl>
-                            <FormLabel htmlFor="name">Full name</FormLabel>
+                            <FormLabel htmlFor="name">First name and last name</FormLabel>
                             <TextField
-                                autoComplete="name"
+                                autoComplete="given-name"
                                 name="name"
                                 required
                                 fullWidth
                                 id="name"
-                                placeholder="Jon Snow"
+                                placeholder="Jon"
                                 error={nameError}
                                 helperText={nameErrorMessage}
                                 color={nameError ? 'error' : 'primary'}
+                            />
+                            <TextField
+                                autoComplete="family-name"
+                                name="lastName"
+                                required
+                                fullWidth
+                                id="lastName"
+                                placeholder="Snow"
+                                error={lastNameError}
+                                helperText={lastNameErrorMessage}
+                                color={lastNameError  ? 'error' : 'primary'}
                             />
                         </FormControl>
                         <FormControl>
@@ -127,7 +152,7 @@ type Props = {
                                 variant="outlined"
                                 error={emailError}
                                 helperText={emailErrorMessage}
-                                color={passwordError ? 'error' : 'primary'}
+                                color={emailError ? 'error' : 'primary'}
                             />
                         </FormControl>
                         <FormControl>
